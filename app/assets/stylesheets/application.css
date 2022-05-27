@@ -9,8 +9,9 @@
 	min-height: 31px;
 	margin: 16px 24px 16px 0;
 	float: left;
-	background-image: url(https://www.honeybadger.io/images/navbar_logo.svg?1602785015);
+	background-image: url(https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/commons/avatar.jpg);
 	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .table-striped-rows th,
