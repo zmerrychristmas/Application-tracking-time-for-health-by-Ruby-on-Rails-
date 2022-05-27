@@ -27,5 +27,7 @@ test:
 
 production:
   <<: *default
-  adapter: sqlite3
-  database: db/production.sqlite3
+  database: rails_react_prod
+  password: 123456
+  username: postgres
+  host: 127.0.0.1
