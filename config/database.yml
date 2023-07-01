@@ -13,7 +13,7 @@ default: &default
 development:
   <<: *default
   database: rails_react
-  password: 123456
+  password: postgres
   username: postgres
   host: 127.0.0.1
 
@@ -28,6 +28,6 @@ test:
 production:
   <<: *default
   database: rails_react_prod
-  password: 123456
+  password: postgres
   username: postgres
   host: 127.0.0.1
