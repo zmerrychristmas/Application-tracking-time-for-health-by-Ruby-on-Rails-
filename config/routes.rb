@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       post 'sleeps/sleep_in', to: 'user_sleep#sleep_in'
       post 'sleeps/:id/wake_up', to: 'user_sleep#wake_up'
       delete 'sleeps/:id/delete', to: 'user_sleep#destroy'
+      post 'friend/add', to: 'user_friend#add'
+      delete 'friend/remove', to: 'user_friend#remove'
+      get 'sleeps/report', to: 'user_sleep#report'
     end
   end
 

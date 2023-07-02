@@ -215,10 +215,10 @@ fetch("http://localhost:3000/api/v1/sleeps/:id/delete", {
   .then((json) => console.dir(json))
   .catch((err) => console.error(err));
 ```
-8. User Friends
+8. User list, add and remove friend
 - List users
 ```js
-fetch("http://localhost:3000/api/v1/sleeps/sleep_in", {
+fetch("http://localhost:3000/users/list", {
   method: "get",
   headers: {
     "Content-Type": "application/json",
@@ -235,3 +235,83 @@ fetch("http://localhost:3000/api/v1/sleeps/sleep_in", {
   .then((json) => console.dir(json))
   .catch((err) => console.error(err));
 ```
+- add friend
+```js
+fetch("http://localhost:3000/api/v1/friend/add", {
+  method: "post",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+  body: JSON.stringify({
+    "user_friend_id": user_id
+  }),
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+- remove friend
+```js
+fetch("http://localhost:3000/api/v1/friend/remove", {
+  method: "delete",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+  body: JSON.stringify({
+    "user_friend_id": user_id
+  }),
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+9, report user and friends sleep in week
+```js
+fetch("http://localhost:3000/api/v1/sleeps/report", {
+  method: "get",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+## Assegement guide
+- Please signup at least two user, after signup use api sleepin and wakeup to add data into database
+```
+http://localhost:3000/signup
+http://localhost:3000/login
+http://localhost:3000/logout
+http://localhost:3000/api/v1/sleeps/sleep_in
+http://localhost:3000/api/v1/sleeps/wake_up
+```
+- Use api add and remove to add friend
+```
+http://localhost:3000/users/list
+http://localhost:3000/api/v1/friend/add
+http://localhost:3000/api/v1/friend/remove
+```
+- Api `http://localhost:3000/api/v1/sleeps/index` for report user sleep 
+- Api `http://localhost:3000/api/v1/sleeps/report` for report user and friend sleep

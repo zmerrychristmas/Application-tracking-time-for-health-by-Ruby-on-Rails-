@@ -22,7 +22,21 @@ class Api::V1::UserSleepController < ApplicationController
 
   def destroy
     @user_sleep.destroy
-    render json: { notice: 'user sleep was successfully removed.' }, status: :ok
+    render json: { message: 'user sleep was successfully removed.' }, status: :ok
+  end
+
+  def report
+    user_sleeps = UserSleep.week(current_user.id)
+    friends = User.friend_list(current_user.id)
+    ret = {
+      "user": user_sleeps,
+      "friends": Hash.new()
+    }
+    friends.each do |e|
+      ret[:friends].store(e.id, UserSleep.week(e.id))
+    end
+
+    render json: ret, status: :ok
   end
 
   private
