@@ -65,7 +65,7 @@ yarn install
 ```sh
 rails s
 ```
-6, Register user
+6, Register user, Login
 ```js
 fetch("http://localhost:3000/signup", {
   method: "post",
@@ -86,6 +86,150 @@ fetch("http://localhost:3000/signup", {
       return res.json();
     } else {
       throw new Error(res);
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+
+6.1, Login
+```js
+fetch("http://localhost:3000/login", {
+  method: "post",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    user: {
+      email: "test@test.com",
+      password: "password",
+    },
+  }),
+})
+  .then((res) => {
+    if (res.ok) {
+      console.log(res.headers.get("Authorization"));
+      localStorage.setItem("token", res.headers.get("Authorization"));
+      return res.json();
+    } else {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+6,2 logout
+```js
+fetch("http://localhost:3000/logout", {
+  method: "delete",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return res.json().then((json) => Promise.reject(json));
+    }
+  })
+  .then((json) => {
+    console.dir(json);
+  })
+  .catch((err) => console.error(err));
+```
+7, Sleep in, wake up
+- Retrieve sleep informations
+```js
+fetch("http://localhost:3000/api/v1/sleeps/index", {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+- User sleep in
+```js
+fetch("http://localhost:3000/api/v1/sleeps/sleep_in", {
+  method: "post",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+- User wake up
+```js
+fetch("http://localhost:3000/api/v1/sleeps/:id/wake_up", {
+  method: "post",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+- User Sleep delete
+```js
+fetch("http://localhost:3000/api/v1/sleeps/:id/delete", {
+  method: "delete",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
+    }
+  })
+  .then((json) => console.dir(json))
+  .catch((err) => console.error(err));
+```
+8. User Friends
+- List users
+```js
+fetch("http://localhost:3000/api/v1/sleeps/sleep_in", {
+  method: "get",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status == "401") {
+      return res.text().then((text) => Promise.reject(text));
     }
   })
   .then((json) => console.dir(json))

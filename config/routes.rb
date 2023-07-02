@@ -17,10 +17,16 @@ Rails.application.routes.draw do
       post 'customers/create'
       delete 'customers/:id', to: 'customers#destroy'
       post 'customer/upload_csv', to: 'customers#import_csv'
+
+      get 'sleeps/index', to: 'user_sleep#index'
+      post 'sleeps/sleep_in', to: 'user_sleep#sleep_in'
+      post 'sleeps/:id/wake_up', to: 'user_sleep#wake_up'
+      delete 'sleeps/:id/delete', to: 'user_sleep#destroy'
     end
   end
 
   root 'customers#index'
   get '/current_user', to: 'current_user#index'
+  get '/users/list', to: 'current_user#list'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
