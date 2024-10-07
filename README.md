@@ -1,4 +1,4 @@
-# README
+# Application tracking time for health by Ruby on Rails
 
 ## prepare for install
 - Ubuntu or Linux system, WSL on windows
